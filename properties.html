@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search available property listings across Nigeria."><title>Browse properties | Prime Assets Nigeria</title>
+  <link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/components.css">
+</head><body>
+  <header class="site-header" data-site-header></header>
+  <main id="main-content" class="section"><div class="container">
+    <span class="eyebrow">Property directory</span><h1 style="font-size:clamp(2.2rem,5vw,3.8rem)">Browse properties</h1>
+    <p class="muted">Search published listings from across Nigeria. Contact an agent to confirm current details.</p>
+    <p class="notice" data-config-notice hidden></p>
+    <form class="filters" data-filters>
+      <div class="field"><label for="filter-q">Keyword</label><input id="filter-q" name="q" placeholder="Search titles"></div>
+      <div class="field"><label for="filter-state">State</label><input id="filter-state" name="state" placeholder="Any state"></div>
+      <div class="field"><label for="filter-city">City / location</label><input id="filter-city" name="city" placeholder="Any city"></div>
+      <div class="field"><label for="filter-category">Category</label><select id="filter-category" name="category"><option value="">All categories</option><option value="residential">Residential</option><option value="land">Land / plots</option><option value="commercial">Commercial</option><option value="other">Other assets</option></select></div>
+      <div class="field"><label for="filter-min">Minimum price (₦)</label><input id="filter-min" name="min" type="number" min="0" step="1000"></div>
+      <div class="field"><label for="filter-max">Maximum price (₦)</label><input id="filter-max" name="max" type="number" min="0" step="1000"></div>
+      <div class="field"><label for="filter-status">Status</label><select id="filter-status" name="status"><option value="">All statuses</option><option value="active">Available</option><option value="closed">Closed</option><option value="coming_soon">Coming soon</option></select></div>
+      <div class="field"><label for="filter-sort">Sort</label><select id="filter-sort" name="sort"><option value="newest">Newest</option><option value="price_low">Lowest price</option><option value="price_high">Highest price</option></select></div>
+      <div class="filter-actions"><button class="button" type="submit">Apply filters</button><button class="button secondary" type="reset">Clear</button></div>
+    </form>
+    <p data-result-count class="muted" style="margin-top:1rem" aria-live="polite"></p>
+    <div class="property-grid" data-listings aria-live="polite"></div>
+    <nav data-pagination aria-label="Property result pages" style="display:flex;justify-content:center;gap:1rem;margin-top:2rem"></nav>
+  </div></main>
+  <footer class="site-footer" data-site-footer></footer>
+  <script type="module" src="js/pages/properties.js"></script>
+</body></html>

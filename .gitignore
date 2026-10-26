@@ -1,0 +1,12 @@
+# Local editor and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local-only configuration and secrets. Public browser config may be committed
+# only after replacing placeholders with public URL/anon-key values.
+.env
+.env.*
+!.env.example
+secrets.*
+

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse real estate and asset listings across Nigeria with Prime Assets Nigeria.">
+  <meta property="og:title" content="Prime Assets Nigeria | Property listings">
+  <meta property="og:description" content="Discover property and assets across Nigeria.">
+  <title>Prime Assets Nigeria | Property listings</title>
+  <link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="site-header" data-site-header></header>
+  <main id="main-content">
+    <section class="hero"><div class="container hero-inner">
+      <span class="eyebrow">Property across Nigeria</span>
+      <h1>Find the right place to build what comes next.</h1>
+      <p>Explore homes, land and commercial opportunities in every part of Nigeria. Speak directly with an agent to confirm details.</p>
+      <form class="hero-search" action="properties.html" method="get" aria-label="Search property listings">
+        <label class="sr-only" for="hero-q">Search property titles</label><input id="hero-q" name="q" placeholder="What are you looking for?">
+        <label class="sr-only" for="hero-category">Category</label><select id="hero-category" name="category"><option value="">All categories</option><option value="residential">Residential</option><option value="land">Land / plots</option><option value="commercial">Commercial</option><option value="other">Other assets</option></select>
+        <label class="sr-only" for="hero-state">State</label><input id="hero-state" name="state" placeholder="State">
+        <button class="button" type="submit">Search listings</button>
+      </form>
+    </div></section>
+    <section class="section"><div class="container">
+      <div class="section-heading"><span class="eyebrow">Handpicked</span><h2>Featured properties</h2><p class="muted">Listings selected by our team. Confirm availability directly with the assigned agent.</p></div>
+      <p class="notice" data-config-notice hidden></p><div class="property-grid" data-featured-listings aria-live="polite"></div>
+      <p style="margin-top:1.5rem"><a class="button secondary" href="properties.html">Browse all properties</a></p>
+    </div></section>
+    <section class="section" style="background:#edf1ec"><div class="container">
+      <span class="eyebrow">Explore by category</span><h2>Start with what matters to you</h2>
+      <div class="property-grid" style="margin-top:1.5rem">
+        <a class="property-card card-body" href="properties.html?category=residential"><h3>Homes & residential</h3><p class="muted">A place to live, grow and belong.</p></a>
+        <a class="property-card card-body" href="properties.html?category=land"><h3>Land & plots</h3><p class="muted">Room for your next plan.</p></a>
+        <a class="property-card card-body" href="properties.html?category=commercial"><h3>Commercial</h3><p class="muted">Space for business and investment.</p></a>
+      </div>
+    </div></section>
+    <section class="section"><div class="container contact-layout">
+      <div><span class="eyebrow">A clear path forward</span><h2>Local knowledge. Nationwide reach.</h2><p class="muted">From first search to a direct conversation with an agent, our team helps you understand the listing and the next steps.</p></div>
+      <div><h3>How we help</h3><p>Browse clear listing details, compare locations and contact an assigned agent to ask questions or arrange a viewing.</p><a href="about.html">Learn about Prime Assets Nigeria</a></div>
+    </div></section>
+    <section class="section" style="background:#e9efe9"><div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap">
+      <div><span class="eyebrow">Ready when you are</span><h2>Talk through your next move.</h2></div><a class="button" href="contact.html">Contact our team</a>
+    </div></section>
+  </main>
+  <footer class="site-footer" data-site-footer></footer>
+  <script type="module" src="js/pages/home.js"></script>
+</body></html>

@@ -21,7 +21,7 @@ form.addEventListener('submit',async(event)=>{
   const propertyId=query.get('property');
   const payload={name:String(data.name).trim(),contact:String(data.contact).trim(),subject:String(data.subject).trim(),message:String(data.message).trim(),...(propertyId?{property_id:propertyId}:{})};
   const submit=form.querySelector('button[type="submit"]');submit.disabled=true;message.textContent='Sending…';
-  try{await submitEnquiry(payload);form.reset();message.className='success';message.textContent='Your enquiry was saved for the team. Email notification is not configured.';}
+  try{await submitEnquiry(payload);form.reset();message.className='success';message.textContent='Your enquiry was saved for the team. We will review it and respond.';}
   catch(error){message.className='error';message.textContent=`We could not save your enquiry. ${error.message||'Please try again.'}`;}
   finally{submit.disabled=false;}
 });

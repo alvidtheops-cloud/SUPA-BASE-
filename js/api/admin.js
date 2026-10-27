@@ -30,7 +30,13 @@ export async function upsertProperty(property) {
 
 export async function uploadPropertyImage(propertyId,file,altText,sortOrder,isCover) {
   const client=requireSupabase();
-  const ext=file.type==='image/png'?'png':'webp';
+  const ext={
+    'image/jpeg':'jpg',
+    'image/png':'png',
+    'image/webp':'webp',
+    'image/avif':'avif',
+  }[file.type];
+  if(!ext)throw new Error('Unsupported image type. Choose a JPEG, PNG, WebP, or AVIF image.');
   const path=`${propertyId}/${crypto.randomUUID()}.${ext}`;
   const {error:uploadError}=await client.storage.from('listing-images').upload(path,file,{contentType:file.type,upsert:false});
   if(uploadError)throw uploadError;

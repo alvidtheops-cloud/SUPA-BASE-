@@ -8,13 +8,32 @@
   <title>Prime Assets Nigeria | Property listings</title>
   <link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/components.css">
 </head>
-<body>
+<body class="home-page">
   <header class="site-header" data-site-header></header>
   <main id="main-content">
-    <section class="hero"><div class="container hero-inner">
-      <span class="eyebrow">Property across Nigeria</span>
-      <h1>Find the right place to build what comes next.</h1>
-      <p>Explore homes, land and commercial opportunities in every part of Nigeria. Speak directly with an agent to confirm details.</p>
+    <section class="hero home-hero"><div class="container hero-inner">
+      <div class="home-hero-grid">
+        <div class="home-hero-copy">
+          <span class="eyebrow">Property across Nigeria</span>
+          <h1>Find a place for your next chapter.</h1>
+          <p>Explore homes, land and commercial opportunities across Nigeria, then speak directly with an agent to confirm the details.</p>
+          <div class="hero-actions"><a class="button" href="properties.html">Explore properties</a><a class="hero-text-link" href="about.html">Discover our approach <span aria-hidden="true">→</span></a></div>
+          <div class="hero-highlights"><span>Homes & land</span><span>Commercial spaces</span><span>Direct agent contact</span></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="scene-glow"></div><div class="scene-orbit scene-orbit-back"></div><div class="scene-orbit scene-orbit-front"></div>
+          <div class="architecture">
+            <div class="architecture-roof"></div>
+            <div class="architecture-body">
+              <div class="architecture-window window-left"></div><div class="architecture-window window-right"></div>
+              <div class="architecture-balcony"></div><div class="architecture-door"></div>
+            </div>
+            <div class="architecture-base"></div>
+          </div>
+          <div class="floating-note note-top"><span class="note-symbol">PA</span><span>Room to imagine<br><strong>what comes next</strong></span></div>
+          <div class="floating-note note-bottom"><span class="note-dot"></span><span>Homes, land & more<br><strong>All in one place</strong></span></div>
+        </div>
+      </div>
       <form class="hero-search" action="properties.html" method="get" aria-label="Search property listings">
         <label class="sr-only" for="hero-q">Search property titles</label><input id="hero-q" name="q" placeholder="What are you looking for?">
         <label class="sr-only" for="hero-category">Category</label><select id="hero-category" name="category"><option value="">All categories</option><option value="residential">Residential</option><option value="land">Land / plots</option><option value="commercial">Commercial</option><option value="other">Other assets</option></select>
@@ -40,7 +59,7 @@
       <div><h3>How we help</h3><p>Browse clear listing details, compare locations and contact an assigned agent to ask questions or arrange a viewing.</p><a href="about.html">Learn about Prime Assets Nigeria</a></div>
     </div></section>
     <section class="section" style="background:#e9efe9"><div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap">
-      <div><span class="eyebrow">Ready when you are</span><h2>Talk through your next move.</h2></div><a class="button" href="contact.html">Contact our team</a>
+      <div><span class="eyebrow">Ready when you are</span><h2>Talk through your next move.</h2></div><div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap"><a class="button" href="contact.html">Contact our team</a><a href="admin/login.html">Admin sign in</a></div>
     </div></section>
   </main>
   <footer class="site-footer" data-site-footer></footer>

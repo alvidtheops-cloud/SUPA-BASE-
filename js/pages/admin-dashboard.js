@@ -75,10 +75,12 @@ async function openPropertyEditor(id=null){
   const publishedField=makeCheckbox('Published on public site',existing?.published||false);const featuredField=makeCheckbox('Feature on homepage',existing?.featured||false);
   const imagesField=document.createElement('div');imagesField.className='field wide';imagesField.append(el('label','','Images (JPEG, PNG, WebP or AVIF, max 8 MB each)'));const fileInput=document.createElement('input');fileInput.type='file';fileInput.multiple=true;fileInput.accept='image/jpeg,image/png,image/webp,image/avif';imagesField.append(fileInput);
   const currentPhotos=el('div','wide');if(existing?.property_images?.length){const ph=el('h3','','Current images');currentPhotos.append(ph);const sortedImages=existing.property_images.slice().sort((a,b)=>a.sort_order-b.sort_order);for(const [index,image] of sortedImages.entries()){const line=el('div','photo-row');const img=document.createElement('img');img.src=requireSupabase().storage.from('listing-images').getPublicUrl(image.storage_path).data.publicUrl;img.alt=image.alt_text;const info=el('span','',`${image.is_cover?'Cover · ':''}${image.alt_text}`);const cover=el('button','button secondary',image.is_cover?'Cover image':'Set cover');cover.type='button';cover.disabled=image.is_cover;cover.addEventListener('click',async()=>{try{await setImageCover(existing.id,image.id);showMessage('Cover image updated.','success');await openPropertyEditor(existing.id);}catch(error){showMessage(error.message,'error');}});const reorder=async(otherIndex)=>{const other=sortedImages[otherIndex];try{await swapImageOrder(image.id,other.id,image.sort_order,other.sort_order,Math.max(...sortedImages.map((item)=>item.sort_order)));await openPropertyEditor(existing.id);}catch(error){showMessage(error.message,'error');}};const up=el('button','button secondary','↑');up.type='button';up.disabled=index===0;up.setAttribute('aria-label','Move image earlier');up.addEventListener('click',()=>reorder(index-1));const down=el('button','button secondary','↓');down.type='button';down.disabled=index===sortedImages.length-1;down.setAttribute('aria-label','Move image later');down.addEventListener('click',()=>reorder(index+1));const remove=el('button','button danger','Remove');remove.type='button';remove.addEventListener('click',async()=>{if(!confirm('Remove this image?'))return;try{await deletePropertyImage(image);if(image.is_cover){const fallback=sortedImages.find((candidate)=>candidate.id!==image.id);if(fallback)await setImageCover(existing.id,fallback.id);}await openPropertyEditor(existing.id);showMessage('Image removed.','success');}catch(error){showMessage(error.message,'error');}});line.append(img,info,cover,up,down,remove);currentPhotos.append(line);}}
-  const response=el('p','wide');response.setAttribute('aria-live','polite');const submit=el('button','button','Save listing');submit.type='submit';const submitWrap=el('div','wide');submitWrap.append(submit,response);
+  const response=el('p','wide');response.setAttribute('aria-live','polite');const submit=el('button','button','Save listing');submit.type='submit';const saveAnother=el('button','button secondary','Save & add another');saveAnother.type='button';const submitWrap=el('div','wide');submitWrap.append(submit,saveAnother,response);
   for(const f of [titleField,slugField,categoryField,stateField,cityField,neighbourhoodField,addressField,priceField,hideField,statusField,dateField,sizeField,unitField,agentField,descField,attrsField,featuresField,publishedField,featuredField,imagesField,currentPhotos,submitWrap])grid.append(f.wrap||f);
   editor.append(top,grid);if(!dialog.open)dialog.showModal();
-  editor.onsubmit=async(event)=>{event.preventDefault();response.className='';submit.disabled=true;response.textContent='Saving…';
+
+  const saveListing = async ({ keepOpen = false } = {}) => {
+    response.className='';submit.disabled=true;saveAnother.disabled=true;response.textContent='Saving…';
     try{
       const status=statusField.input.value;const expected=dateField.input.value||null;
       const scheduleChanged=!existing||status!==existing.status||expected!==existing.expected_date;
@@ -88,10 +90,19 @@ async function openPropertyEditor(id=null){
       const slug=slugField.input.value.trim()||slugify(titleField.input.value);
       const property=await upsertProperty({...(existing?{id:existing.id}:{}),slug,title:titleField.input.value.trim(),description:descField.input.value.trim(),category:categoryField.input.value,price:priceField.input.value?Number(priceField.input.value):null,hide_price:hideField.input.checked,currency:'NGN',status,expected_date:expected,published:publishedField.input.checked,featured:featuredField.input.checked,state:stateField.input.value.trim(),city:cityField.input.value.trim()||null,neighbourhood:neighbourhoodField.input.value.trim()||null,address:addressField.input.value.trim()||null,measurement_value:sizeField.input.value?Number(sizeField.input.value):null,measurement_unit:sizeField.input.value?unitField.input.value:null,attributes:attrs,features:featuresField.input.value.split('\n').map((x)=>x.trim()).filter(Boolean),agent_id:agentField.input.value||null});
       const selected=Array.from(fileInput.files);try{for(const [index,file] of selected.entries()){const validation=validateImage(file);if(validation)throw new Error(validation);const resized=await resizeImage(file);const isCover=!(existing?.property_images?.some((image)=>image.is_cover))&&index===0;const location=[neighbourhoodField.input.value,cityField.input.value,stateField.input.value].filter(Boolean).join(', ');await uploadPropertyImage(property.id,resized,`${titleField.input.value.trim()} property${location?` in ${location}`:''}, image ${index+1}`,index+(existing?.property_images?.length||0),isCover);}}catch(imageError){throw new Error(`Listing saved, but image upload failed: ${imageError.message}`);}
-      response.className='success';response.textContent='Listing saved. Changes are stored in Supabase.';showMessage('Listing saved.','success');await renderView();
-    }catch(error){response.className='error';response.textContent=error.message||'Could not save listing.';}
-    finally{submit.disabled=false;}
+      response.className='success';response.textContent='Listing saved. Changes are stored in Supabase.';showMessage('Listing saved.','success');
+      if(keepOpen){
+        await renderView();
+        openPropertyEditor();
+        return;
+      }
+      await renderView();
+    }catch(error){response.className='error';response.textContent=error.message||'Could not save listing.';showMessage(error.message||'Could not save listing.','error');}
+    finally{submit.disabled=false;saveAnother.disabled=false;}
   };
+
+  editor.onsubmit=async(event)=>{event.preventDefault();await saveListing({keepOpen:false});};
+  saveAnother.addEventListener('click', async()=>{await saveListing({keepOpen:true});});
 }
 
 async function confirmDeleteProperty(property){if(!confirm(`Delete “${property.title}” and its images? This cannot be undone.`))return;try{const current=await getAdminProperty(property.id);await deleteProperty(current);showMessage('Listing and images deleted.','success');await renderView();}catch(error){showMessage(`Delete failed: ${error.message}`,'error');}}

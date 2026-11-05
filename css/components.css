@@ -186,7 +186,7 @@ body { background: var(--paper); }
 .filters { gap: 1rem; padding: 1.2rem; }
 .field input, .field select, .field textarea { border-color: #d7e0d8; border-radius: 9px; transition: border-color .2s ease, box-shadow .2s ease; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: #6d94d5; box-shadow: 0 0 0 3px #123f9116; outline: 0; }
-.site-footer { background: radial-gradient(ellipse at 85% 0, #285542, transparent 34%), #102b22; }
+.site-footer { background: radial-gradient(ellipse at 85% 0, #2762c2, transparent 34%), #071f50; }
 .site-footer h2, .site-footer h3 { letter-spacing: -.02em; }
 .site-footer a { text-decoration-color: #ffffff45; text-underline-offset: 3px; }
 .site-footer a:hover { color: white; text-decoration-color: currentColor; }

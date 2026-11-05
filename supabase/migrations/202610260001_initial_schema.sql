@@ -1,4 +1,4 @@
--- Prime Assets Nigeria initial schema and browser security policies.
+-- WOKITON NIG LTD initial schema and browser security policies.
 -- Apply from Supabase SQL Editor after creating the project.
 
 create extension if not exists pgcrypto with schema extensions;

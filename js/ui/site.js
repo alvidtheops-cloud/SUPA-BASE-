@@ -10,12 +10,13 @@ export function el(tag, className, text) {
 export async function renderChrome() {
   const header = document.querySelector('[data-site-header]');
   const footer = document.querySelector('[data-site-footer]');
-  const brandName = 'Prime Assets Nigeria';
+  const defaultBrandName = 'WOKITON NIG LTD';
   if (header) {
     const skip=el('a','skip-link','Skip to main content');skip.href='#main-content';header.append(skip);
     const wrap = el('div', 'container nav-wrap');
-    const brand = el('a', 'brand'); brand.href = 'index.html'; brand.setAttribute('aria-label', `${brandName} home`);
-    const mark = el('span', 'brand-mark', 'PA'); mark.setAttribute('aria-hidden', 'true'); brand.append(mark, el('span', '', brandName));
+    const brand = el('a', 'brand'); brand.href = 'index.html'; brand.setAttribute('aria-label', `${defaultBrandName} home`);
+    const logo = document.createElement('img'); logo.src = 'logo.jpg'; logo.alt = ''; logo.className = 'brand-logo';
+    brand.append(logo, el('span', '', defaultBrandName));
     const toggle = el('button', 'nav-toggle', 'Menu'); toggle.type = 'button'; toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-controls', 'primary-nav');
     const nav = el('nav', 'nav-links'); nav.id = 'primary-nav'; nav.setAttribute('aria-label', 'Main navigation');
     const links = [['Home','index.html'],['Properties','properties.html'],['About','about.html'],['Contact','contact.html']];
@@ -25,18 +26,18 @@ export async function renderChrome() {
   }
   if (footer) {
     const container = el('div','container'); const grid = el('div','footer-grid');
-    const about = el('div'); const footerBrand=el('h2','',brandName);footerBrand.dataset.brandName='';about.append(footerBrand,el('p','muted','Real estate and asset listings across Nigeria. Contact our team to confirm current availability and details.'));
+    const about = el('div'); const footerBrand=el('h2','',defaultBrandName);footerBrand.dataset.brandName='';about.append(footerBrand,el('p','muted','Business, infrastructure and property opportunities across Nigeria. Contact our team to confirm current availability and details.'));
     const explore = el('div'); explore.append(el('h3','','Explore')); const ul = el('ul');
     for (const [name, href] of [['Browse properties','properties.html'],['About us','about.html'],['Contact','contact.html'],['Admin sign in','admin/login.html']]) { const li=el('li'); const a=el('a','',name); a.href=href; li.append(a); ul.append(li); }
     explore.append(ul);
     const contact = el('div'); contact.append(el('h3','','Contact details'));
     const details = el('p','muted','Company details are being configured.'); details.dataset.footerDetails=''; contact.append(details);
     const social=el('div');social.dataset.socialLinks='';contact.append(social);
-    grid.append(about,explore,contact); const copy=el('div','copyright',`© ${new Date().getFullYear()} ${brandName}`);copy.dataset.copyright='';container.append(grid,copy); footer.append(container);
+    grid.append(about,explore,contact); const copy=el('div','copyright',`© ${new Date().getFullYear()} ${defaultBrandName}`);copy.dataset.copyright='';container.append(grid,copy); footer.append(container);
   }
   try {
     const settings = await getSettings();
-    const brandName = asText(settings.brand_name) || 'Prime Assets Nigeria';
+    const brandName = asText(settings.brand_name) || defaultBrandName;
     document.querySelectorAll('[data-brand-name]').forEach((node)=>node.textContent=brandName);
     const copyright=document.querySelector('[data-copyright]');if(copyright)copyright.textContent=`© ${new Date().getFullYear()} ${brandName}`;
     const brand = document.querySelector('.brand');
@@ -44,9 +45,9 @@ export async function renderChrome() {
       brand.setAttribute('aria-label', `${brandName} home`);
       const text = brand.querySelector('span:last-child');
       if (text) text.textContent = brandName;
-      const logoUrl = safeImageUrl(asText(settings.logo_url));
+      const logoUrl = safeImageUrl(asText(settings.logo_url)) || 'logo.jpg';
       if (logoUrl) {
-        const image = document.createElement('img'); image.src = logoUrl; image.alt = '';
+        const image = brand.querySelector('.brand-logo') || document.createElement('img'); image.src = logoUrl; image.alt = ''; image.className = 'brand-logo';
         brand.querySelector('.brand-mark')?.replaceWith(image);
       }
     }

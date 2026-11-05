@@ -4,10 +4,10 @@
   --muted: #66736d;
   --paper: #f7f8f4;
   --surface: #fff;
-  --green: #164b3b;
-  --green-dark: #10392e;
-  --gold: #b78843;
-  --line: #e2e8e2;
+  --green: #123f91;
+  --green-dark: #092d70;
+  --gold: #f0b429;
+  --line: #dce5f2;
   --red: #a72d2d;
   --orange: #a95b16;
   --radius: 14px;
@@ -22,7 +22,7 @@ img { max-width: 100%; display: block; }
 a { color: var(--green); }
 button, input, select, textarea { font: inherit; }
 button, a { touch-action: manipulation; }
-:focus-visible { outline: 3px solid #d39942; outline-offset: 3px; }
+:focus-visible { outline: 3px solid #f0b429; outline-offset: 3px; }
 .container { width: min(1160px, calc(100% - 2.5rem)); margin-inline: auto; }
 .section { padding-block: clamp(3rem, 7vw, 6rem); }
 .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .14em; font-size: .74rem; font-weight: 800; }

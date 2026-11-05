@@ -1,4 +1,4 @@
-# Prime Assets Nigeria — Architecture (Phase 1)
+# WOKITON NIG LTD — Architecture (Phase 1)
 
 This document defines the production architecture and database/security design. It is a plan for Phase 2 migrations and later frontend work; no schema or backend has been deployed yet.
 

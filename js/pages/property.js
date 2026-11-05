@@ -12,7 +12,7 @@ const query=new URLSearchParams(location.search);const slug=query.get('slug');co
 if (!slug&&!previewId) { root.replaceChildren(el('div','empty-state','Choose a listing from the properties page.')); }
 else try {
   const property=previewId?await getListingPreview(previewId):await getListingBySlug(slug);
-  if (!property) { root.replaceChildren(el('div','empty-state','This listing is unavailable or has been removed.')); setPageMeta('Property not found | Prime Assets Nigeria','This listing is unavailable.'); }
+  if (!property) { root.replaceChildren(el('div','empty-state','This listing is unavailable or has been removed.')); setPageMeta('Property not found | WOKITON NIG LTD','This listing is unavailable.'); }
   else {
     if(previewId){const banner=el('p','notice','Admin preview: this listing is not being shown publicly unless it has been published.');root.before(banner);}
     document.querySelector('[data-breadcrumb-title]').textContent=property.title;
@@ -55,7 +55,7 @@ else try {
       left.append(form);
     } else panel.append(el('p','muted',property.status==='closed'?'This property is closed and cannot receive enquiries.':'This property is coming soon and is not currently available for enquiries.'));
     detail.append(left,panel);root.replaceChildren(detail);
-    setPageMeta(`${property.title} | Prime Assets Nigeria`,`${formatCategory(property.category)} in ${formatLocation(property)}. ${property.description.slice(0,130)}`,images[0]?publicImageUrl(images[0].storage_path):'');
+    setPageMeta(`${property.title} | WOKITON NIG LTD`,`${formatCategory(property.category)} in ${formatLocation(property)}. ${property.description.slice(0,130)}`,images[0]?publicImageUrl(images[0].storage_path):'');
     try{const related=await getListings({params:new URLSearchParams(`category=${encodeURIComponent(property.category)}`),pageSize:4});renderCards(document.querySelector('[data-related-listings]'),related.data.filter((item)=>item.id!==property.id).slice(0,3),'More listings will appear here.');}
     catch{renderCards(document.querySelector('[data-related-listings]'),[],'Related listings could not be loaded.');}
   }

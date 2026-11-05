@@ -1,4 +1,4 @@
-# Prime Assets Nigeria — Phase 1 Setup Notes
+# WOKITON NIG LTD — Phase 1 Setup Notes
 
 ## Verified service and cost snapshot
 

@@ -1,4 +1,4 @@
-# Prime Assets Nigeria
+# WOKITON NIG LTD
 
 Production real-estate listings site using plain HTML/CSS/vanilla JavaScript and Supabase.
 

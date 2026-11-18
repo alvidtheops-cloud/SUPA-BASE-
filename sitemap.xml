@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/properties</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/about</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/properties?category=residential</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/properties?category=land</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/properties?category=commercial</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/contact</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/index.html</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.5120</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/properties.html</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.5120</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/about.html</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.5120</priority>
+  </url>
+  <url>
+       <loc>https://wokitonnigltd.netlify.app/contact.html</loc>
+       <lastmod>2026-11-18T21:26:20+00:00</lastmod>
+       <priority>0.5120</priority>
+  </url>
+</urlset>

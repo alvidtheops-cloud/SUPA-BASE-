@@ -1,14 +1,17 @@
 import { getSettings, submitEnquiry } from '../api/public.js';
 import { renderChrome, showConfigurationError, el } from '../ui/site.js';
 import { validateEnquiry } from '../validation.js';
+import { whatsappUrl } from '../whatsapp.js';
 await renderChrome();
 const form=document.querySelector('[data-enquiry-form]');
 const message=document.querySelector('[data-form-message]');
 const query=new URLSearchParams(location.search);
 const subject=form.elements.namedItem('subject');
 if(query.get('title'))subject.value=`Enquiry about ${query.get('title')}`;
+let whatsappPhone='+2349150709422';
 try{
   const settings=await getSettings();const root=document.querySelector('[data-contact-details]');root.replaceChildren();
+  const configuredWhatsappPhone=settingString(settings.whatsapp_phone);if(configuredWhatsappPhone)whatsappPhone=configuredWhatsappPhone;
   const email=settingString(settings.company_email);const phone=settingString(settings.company_phone);const address=settingString(settings.address);const hours=settingString(settings.business_hours);
   for(const [label,value] of [['Email',email],['Phone',phone],['Address',address],['Hours',hours]])if(value){const section=el('p');section.append(el('strong','',`${label}: `),el('span','',value));root.append(section);}
   if(!root.children.length)root.append(el('p','muted','Company contact details have not been configured yet.'));
@@ -21,7 +24,19 @@ form.addEventListener('submit',async(event)=>{
   const propertyId=query.get('property');
   const payload={name:String(data.name).trim(),contact:String(data.contact).trim(),subject:String(data.subject).trim(),message:String(data.message).trim(),...(propertyId?{property_id:propertyId}:{})};
   const submit=form.querySelector('button[type="submit"]');submit.disabled=true;message.textContent='Sending…';
-  try{await submitEnquiry(payload);form.reset();message.className='success';message.textContent='Your enquiry was saved for the team. Email notification is not configured.';}
+  try{
+    await submitEnquiry(payload);
+    const enquiryText=[
+      'Hello WOKITON NIG LTD, I would like to make an enquiry.',
+      `Name: ${payload.name}`,
+      `Contact: ${payload.contact}`,
+      `Subject: ${payload.subject}`,
+      `Message: ${payload.message}`,
+    ].join('\n');
+    const url=whatsappUrl(whatsappPhone,'',enquiryText);
+    form.reset();message.className='success';message.textContent=url?'Your enquiry was saved. WhatsApp is opening now.':'Your enquiry was saved, but WhatsApp is not configured yet.';
+    if(url){const whatsappWindow=window.open(url,'_blank','noopener,noreferrer');if(!whatsappWindow)window.location.href=url;}
+  }
   catch(error){message.className='error';message.textContent=`We could not save your enquiry. ${error.message||'Please try again.'}`;}
   finally{submit.disabled=false;}
 });

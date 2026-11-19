@@ -63,8 +63,9 @@ async function openPropertyEditor(id=null){
   if(existing){const preview=el('a','button secondary','Preview');preview.href=`../property.html?preview=${encodeURIComponent(existing.id)}`;preview.target='_blank';preview.rel='noopener noreferrer';top.append(preview);}
   top.append(close);
   const grid=el('div','editor-grid');
-  const titleField=makeInput('Title','text',existing?.title||'');const categoryField=makeSelect('Category',[['residential','Residential'],['land','Land / plots'],['commercial','Commercial'],['other','Other assets']],existing?.category||'residential');
-  const buildingTypeField=makeInput('Building type','text',existing?.attributes?.building_type||'');const propertyTypeField=makeInput('Property type','text',existing?.attributes?.property_type||'');const stateField=makeInput('State','text',existing?.state||'');const cityField=makeInput('City','text',existing?.city||'');const addressField=makeInput('Address','text',existing?.address||'');
+  const titleField=makeInput('Title (required)','text',existing?.title||'');const categoryField=makeSelect('Category (required)',[['residential','Residential'],['land','Land / plots'],['commercial','Commercial'],['other','Other assets']],existing?.category||'residential');
+  const buildingTypeField=makeInput('Building type','text',existing?.attributes?.building_type||'');const propertyTypeField=makeInput('Property type','text',existing?.attributes?.property_type||'');const stateField=makeInput('State (required)','text',existing?.state||'');const cityField=makeInput('City (required)','text',existing?.city||'');const addressField=makeInput('Address','text',existing?.address||'');
+  for(const field of [titleField,categoryField,stateField,cityField])field.input.required=true;
   const priceField=makeInput('Price in ₦ (leave empty for contact price)','number',existing?.price??'');priceField.input.min='0';priceField.input.step='0.01';
   const statusOptions=[['active','Active'],['closed','Closed']];if(existing?.status==='coming_soon')statusOptions.push(['coming_soon','Coming Soon']);const statusField=makeSelect('Status',statusOptions,existing?.status||'active');
   const listingWhatsappField=makeInput('Listing WhatsApp number (optional, E.164)','tel',existing?.attributes?.listing_whatsapp_phone||'');
@@ -79,6 +80,7 @@ async function openPropertyEditor(id=null){
     response.className='';submit.disabled=true;saveAnother.disabled=true;response.textContent='Saving…';
     try{
       const status=statusField.input.value;const expected=existing?.expected_date||null;
+      if(!titleField.input.value.trim()||!stateField.input.value.trim()||!cityField.input.value.trim()||!categoryField.input.value)throw new Error('Title, state, city, and category are required.');
       const scheduleChanged=!existing||status!==existing.status;
       if(scheduleChanged&&!validateComingSoon(status,expected)){throw new Error('Coming Soon listings need an expected date in the future.');}
       const slug=existing?.slug||slugify(titleField.input.value);
